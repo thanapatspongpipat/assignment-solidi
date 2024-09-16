@@ -1,0 +1,359 @@
+[
+  {
+    "email": "user1@example.com",
+    "phone": "0991111111",
+    "password": "$2a$10$e2m8bJ6LNz6zm7qRoMBheOVBdDQq/9FZ3YPTr/CYjSFLnOaLwQzxy",
+    "firstName": "John",
+    "lastName": "Doe",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1990,
+      "month": 5,
+      "day": 15
+    }
+  },
+  {
+    "email": "user2@example.com",
+    "phone": "0992222222",
+    "password": "$2a$10$eW4b54vlUStXX0WqrrMCuA1fH2KH2Ul.FhG96OIsOGnA46oPhrnDO",
+    "firstName": "Jane",
+    "lastName": "Smith",
+    "gender": 2,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1985,
+      "month": 11,
+      "day": 23
+    }
+  },
+  {
+    "email": "user3@example.com",
+    "phone": "0993333333",
+    "password": "$2a$10$GBDQxuAhA9CVX9RPgA3v2eOUFESzTMAyxnbU6JD48RvrSz8XYuRse",
+    "firstName": "Alice",
+    "lastName": "Johnson",
+    "gender": 2,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1992,
+      "month": 7,
+      "day": 30
+    }
+  },
+  {
+    "email": "user4@example.com",
+    "phone": "0994444444",
+    "password": "$2a$10$AP4hGo.zj9eLQmGneVj7XebpHZFyyZylRdkVQd2pfn3VWJ8svIWzC",
+    "firstName": "Bob",
+    "lastName": "Brown",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1994,
+      "month": 4,
+      "day": 8
+    }
+  },
+  {
+    "email": "user5@example.com",
+    "phone": "0995555555",
+    "password": "$2a$10$PvskL2arF43TPrKSTj84VOUb6otRHzKp5uwbBcW64g9hD48EYDq6O",
+    "firstName": "Emily",
+    "lastName": "Davis",
+    "gender": 2,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1991,
+      "month": 3,
+      "day": 12
+    }
+  },
+  {
+    "email": "user6@example.com",
+    "phone": "0996666666",
+    "password": "$2a$10$R.Zh4lSQK7VX9FfzwFyl1OxlC3HfoDP4L4nChzMjpKjdcg2sp5XwW",
+    "firstName": "Charlie",
+    "lastName": "Wilson",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1993,
+      "month": 6,
+      "day": 20
+    }
+  },
+  {
+    "email": "user7@example.com",
+    "phone": "0997777777",
+    "password": "$2a$10$wXw.GxiDwZ7MgPvBc3msF.O6g7US9M0T9RfXvhDDJFL1ghIwVDfBW",
+    "firstName": "Olivia",
+    "lastName": "Taylor",
+    "gender": 2,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1990,
+      "month": 12,
+      "day": 25
+    }
+  },
+  {
+    "email": "user8@example.com",
+    "phone": "0998888888",
+    "password": "$2a$10$JrA4Z8RaQK.M9pt2S8hfoIIfk0qMEpAL3dxROsoSGBGPQbTC7a9vG",
+    "firstName": "Daniel",
+    "lastName": "Anderson",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1995,
+      "month": 2,
+      "day": 5
+    }
+  },
+  {
+    "email": "user9@example.com",
+    "phone": "0999999999",
+    "password": "$2a$10$3T6H5OajPQsG.eBeOF5OXOOYg1wflXr0lSTlxwEjsGFBlFzRMf4ne",
+    "firstName": "Sophia",
+    "lastName": "Martinez",
+    "gender": 2,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1988,
+      "month": 9,
+      "day": 17
+    }
+  },
+  {
+    "email": "user10@example.com",
+    "phone": "0991010101",
+    "password": "$2a$10$N1OawHtnIV8mC5QcfDThlepp8xTIDM/MB6P5vR6WYrU04t0P4sLk.",
+    "firstName": "Lucas",
+    "lastName": "Harris",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1992,
+      "month": 10,
+      "day": 9
+    }
+  },
+  {
+    "email": "user11@example.com",
+    "phone": "0992121212",
+    "password": "$2a$10$U95If7LlQuA8qexhQbF2iO3mjSV2J8rHX8hlO/nPQ3LRWmxT7StgG",
+    "firstName": "Mia",
+    "lastName": "Clark",
+    "gender": 2,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1989,
+      "month": 8,
+      "day": 29
+    }
+  },
+  {
+    "email": "user12@example.com",
+    "phone": "0993131313",
+    "password": "$2a$10$HkGlFiP/mD/KoZCjI/n5Cu7oE79yUocRzsfTEl5MDMvN8bZsHWBkS",
+    "firstName": "Ethan",
+    "lastName": "Walker",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1994,
+      "month": 1,
+      "day": 22
+    }
+  },
+  {
+    "email": "user13@example.com",
+    "phone": "0994141414",
+    "password": "$2a$10$hKsYQcmUQ7m.b1bxwvUyaOyLx6Hs3.SyFSFZauXOkhBgsP7QsI0z2",
+    "firstName": "Ava",
+    "lastName": "Young",
+    "gender": 2,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1991,
+      "month": 7,
+      "day": 4
+    }
+  },
+  {
+    "email": "user14@example.com",
+    "phone": "0995151515",
+    "password": "$2a$10$kgFCqNkn9G9BZ7bBoq15POMHCTkmA8yRZ5v1VS8K6ZY10i0DoThhO",
+    "firstName": "James",
+    "lastName": "Allen",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1993,
+      "month": 6,
+      "day": 13
+    }
+  },
+  {
+    "email": "user15@example.com",
+    "phone": "0996161616",
+    "password": "$2a$10$FS/pBz/6ksRjd4V9JPQv9e3OEKj1s44gPqUBxlA6XRYxy1ITCC5O",
+    "firstName": "Isabella",
+    "lastName": "Scott",
+    "gender": 2,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1992,
+      "month": 5,
+      "day": 19
+    }
+  },
+  {
+    "email": "user16@example.com",
+    "phone": "0997171717",
+    "password": "$2a$10$Osvv9frBhIObg8qzA3OfyO2sO/wkDCMy0h.c2I7JirY80aq7AdZW2",
+    "firstName": "Alexander",
+    "lastName": "King",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1988,
+      "month": 11,
+      "day": 30
+    }
+  },
+  {
+    "email": "user17@example.com",
+    "phone": "0998181818",
+    "password": "$2a$10$XnC7yYvcOynswvA2YYfW5e0BBk0tM92Frb/6kJIXM6Q4u9z.qON8q",
+    "firstName": "Charlotte",
+    "lastName": "Wright",
+    "gender": 2,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1995,
+      "month": 2,
+      "day": 14
+    }
+  },
+  {
+    "email": "user18@example.com",
+    "phone": "0999191919",
+    "password": "$2a$10$E5R7GQ.aO/y2i6fE55ZLJOkZPScWHD0BVRN4tqJr9jW.y0Or0Sc3y",
+    "firstName": "Henry",
+    "lastName": "Green",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1996,
+      "month": 8,
+      "day": 21
+    }
+  },
+  {
+    "email": "user19@example.com",
+    "phone": "0990202020",
+    "password": "$2a$10$xtKZHHRYxtzdLT3PL6hStOeIqO1clWUl0eV53My.JkmLxh8Bco46K",
+    "firstName": "Grace",
+    "lastName": "Hughes",
+    "gender": 2,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1990,
+      "month": 6,
+      "day": 8
+    }
+  },
+  {
+    "email": "user20@example.com",
+    "phone": "0991212121",
+    "password": "$2a$10$X3NSOEjFqF3XcbAN74lW8uQ5S4OrT0e1b5b7B03smOj0Zj9JBBn/a",
+    "firstName": "Sebastian",
+    "lastName": "Carter",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 1994,
+      "month": 4,
+      "day": 3
+    }
+  },
+  {
+    "email": "admin@admin.com",
+    "phone": "09999999",
+    "password": "$2a$10$.JNqihqb1qFl9wCX4M6m5uHo8fQiA7LQnqJjNlQ/3fCNsH4/q1Z6G",
+    "firstName": "Admin",
+    "lastName": "Admin",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 2000,
+      "month": 1,
+      "day": 1
+    }
+  }
+]
