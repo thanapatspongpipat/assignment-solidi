@@ -7,8 +7,8 @@ Follow these steps to set up and run the project:
 First, clone the repository to your local machine:
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone [<repository-url>](https://github.com/thanapatspongpipat/assignment-solidi.git)
+cd [<repository-directory>](assignment-solidi)
 ```
 
 ## 2. Install Dependencies
