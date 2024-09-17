@@ -16,6 +16,8 @@ import {
      toCalendarDate,
 } from "@internationalized/date";
 import bcrypt from "bcryptjs";
+import Swal from "sweetalert2";
+
 
 const genders = [
      {
@@ -29,6 +31,26 @@ const genders = [
      { id: 3, type: "ETC." },
 ];
 
+const validateForm = (form: User) => {
+     const errors: { [key: string]: string } = {};
+
+     if (!form.email) errors.email = "Email is required";
+     else if (!/^[\w-.]+@([\w-]+\.)+[a-zA-Z]{2,}$/.test(form.email))
+          errors.email = "Invalid email format";
+
+     if (!form.phone) errors.phone = "Phone number is required";
+
+     if (!form.password) errors.password = "Password is required";
+
+     if (form.password !== form.confirmPassword)
+          errors.confirmPassword = "Passwords do not match";
+
+     if (!form.firstName) errors.firstName = "First name is required";
+     if (!form.lastName) errors.lastName = "Last name is required";
+
+     return errors;
+};
+
 const Register = () => {
      const [formRegister, setFormRegister] = useState<User>({
           email: "",
@@ -40,13 +62,15 @@ const Register = () => {
           gender: 1,
           birthDate: parseDate("2000-01-01"),
      });
-     const [error, setError] = useState("");
+     const [errors, setErrors] = useState<{ [key: string]: string }>();
      const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
-          if (formRegister.password !== formRegister.confirmPassword) {
-               setError("Password not match");
-               return;
+          const formErrors = validateForm(formRegister);
+          if (Object.keys(formErrors).length > 0) {
+               setErrors(formErrors);
+               return; // Stop form submission if there are validation errors
           }
+
           try {
                // Hash the password before sending it to the API
                const hashedPassword = await bcrypt.hash(
@@ -70,7 +94,7 @@ const Register = () => {
                if (res.ok) {
                     const usersResponse = await fetch("/mocks/users.json");
                     const users = await usersResponse.json();
-                    localStorage.setItem("users", JSON.stringify(users));
+                    // localStorage.setItem("users", JSON.stringify(users));
                     setFormRegister({
                          email: "",
                          phone: "",
@@ -82,16 +106,36 @@ const Register = () => {
                          birthDate: parseDate("2000-01-01"),
                     } as User);
 
-                    setError("");
-                    console.log("Registration successful");
+                    setErrors({});
+                    Swal.fire({
+                         title: "Registration Successful",
+                         text: "You have successfully registered!",
+                         icon: "success",
+                         confirmButtonText: "OK",
+                    }).then(() => {
+                         // Redirect to login page or another page after successful registration
+                         window.location.href = "/login";
+                    });
                } else {
                     const errorData = await res.json();
-                    setError(errorData.message || "Registration failed");
-                    console.log("Registration failed:", errorData);
+                    setErrors({
+                         form: errorData.message || "Registration failed",
+                    });
+                    Swal.fire({
+                         title: "Registration Failed",
+                         text: errorData.message || "Registration failed",
+                         icon: "error",
+                         confirmButtonText: "OK",
+                     });
                }
           } catch (error) {
-               console.error("Register failed:", error);
-               setError("An error occurred during registration");
+               setErrors({ form: "An error occurred during registration" });
+               Swal.fire({
+                    title: "Error",
+                    text: "An error occurred during registration",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                });
           }
      };
 
@@ -136,6 +180,8 @@ const Register = () => {
                                              onChange={handleInputChange}
                                              placeholder="you@example.com"
                                              labelPlacement="outside"
+                                             isInvalid={!!errors?.email}
+                                             errorMessage={errors?.email}
                                         />
                                         <Input
                                              isRequired
@@ -152,6 +198,8 @@ const Register = () => {
                                                        </span>
                                                   </div>
                                              }
+                                             isInvalid={!!errors?.phone}
+                                             errorMessage={errors?.phone}
                                         />
                                    </div>
                                    <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 py-3">
@@ -164,6 +212,8 @@ const Register = () => {
                                              onChange={handleInputChange}
                                              placeholder="*********"
                                              labelPlacement="outside"
+                                             isInvalid={!!errors?.password}
+                                             errorMessage={errors?.password}
                                         />
                                    </div>
                                    <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 py-3">
@@ -178,6 +228,12 @@ const Register = () => {
                                              label="Confirm Password"
                                              placeholder="*********"
                                              labelPlacement="outside"
+                                             isInvalid={
+                                                  !!errors?.confirmPassword
+                                             }
+                                             errorMessage={
+                                                  errors?.confirmPassword
+                                             }
                                         />
                                    </div>
 
@@ -191,6 +247,8 @@ const Register = () => {
                                              onChange={handleInputChange}
                                              placeholder="Alex"
                                              labelPlacement="outside"
+                                             isInvalid={!!errors?.firstName}
+                                             errorMessage={errors?.firstName}
                                         />
                                         <Input
                                              isRequired
@@ -201,6 +259,8 @@ const Register = () => {
                                              label="Last Name"
                                              placeholder="Mc"
                                              labelPlacement="outside"
+                                             isInvalid={!!errors?.lastName}
+                                             errorMessage={errors?.lastName}
                                         />
                                    </div>
                                    <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 py-3">
@@ -213,6 +273,8 @@ const Register = () => {
                                              placeholder="Select a gender"
                                              defaultSelectedKeys={["Male"]}
                                              className="max-w-xs w-2/4"
+                                             isInvalid={!!errors?.gender}
+                                             errorMessage={errors?.gender}
                                         >
                                              {genders.map((gender) => (
                                                   <SelectItem key={gender.id}>
@@ -221,6 +283,7 @@ const Register = () => {
                                              ))}
                                         </Select>
                                         <DatePicker
+                                             isRequired
                                              label="Birth date"
                                              value={formRegister.birthDate}
                                              onChange={handleDateChange}
@@ -229,6 +292,12 @@ const Register = () => {
                                              dateInputClassNames={{
                                                   input: "text-black", // Apply custom class to the input field
                                              }}
+                                             isInvalid={!!errors?.birthDate}
+                                             // errorMessage={(value) => {
+                                             //      if (value.isInvalid) {
+                                             //           return "Please enter a valid date.";
+                                             //      }
+                                             // }}
                                         />
                                    </div>
                               </div>

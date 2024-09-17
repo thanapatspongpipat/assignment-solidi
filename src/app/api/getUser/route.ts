@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { User } from "../../interface/User";
 import path from "path";
 import fs from "fs";
+import { getToken } from "next-auth/jwt";
 
 interface Login {
      email: string;
@@ -21,10 +22,11 @@ async function getUserByEmail(email: string): Promise<User | undefined> {
           const fileContent = fs.readFileSync(filePath, "utf-8");
           users = JSON.parse(fileContent);
      }
+
      return users.find((user) => user.email === email);
 }
 
-export async function POST(req: Request) {
+export async function POST(req: any, res: any) {
      try {
           const formLogin = await req.json();
           const user = await getUserByEmail(formLogin.email);
@@ -38,7 +40,7 @@ export async function POST(req: Request) {
 
           return NextResponse.json({
                data: user,
-               message: '',
+               message: "",
                status: 500,
           });
      } catch (error) {

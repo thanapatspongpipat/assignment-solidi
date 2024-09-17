@@ -355,5 +355,39 @@
       "month": 1,
       "day": 1
     }
+  },
+  {
+    "email": "test13@test.com",
+    "phone": "0987654321",
+    "password": "$2a$10$WGKwZPEGhUbNRV/FOfdppOMnAOvPEkLdKmTZgVis7ODUcD9E21uD2",
+    "firstName": "Technician",
+    "lastName": "Dormtown",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 2000,
+      "month": 1,
+      "day": 1
+    }
+  },
+  {
+    "email": "testtest@test.com",
+    "phone": "0987654321",
+    "password": "$2a$10$KAk53KYEj1nKU1m708s2g.M6.ucqUaBsAxCWH7sSOnftYBSnJd1Fu",
+    "firstName": "Technician",
+    "lastName": "Dormtown",
+    "gender": 1,
+    "birthDate": {
+      "calendar": {
+        "identifier": "gregory"
+      },
+      "era": "AD",
+      "year": 2000,
+      "month": 1,
+      "day": 1
+    }
   }
 ]

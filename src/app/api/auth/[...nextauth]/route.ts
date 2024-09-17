@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import path from "path";
 import fs from "fs";
 import { User } from "@/app/interface/User";
+import { getToken } from "next-auth/jwt";
 
 interface Login {
      email: string;
@@ -22,7 +23,7 @@ const authOptions: NextAuthOptions = {
                     email: { label: "Email", type: "email" },
                     password: { label: "Password", type: "password" },
                },
-               async authorize(credentials, req) {
+               async authorize(credentials, req: any) {
                     if (!credentials) {
                          return null;
                     }
@@ -31,7 +32,6 @@ const authOptions: NextAuthOptions = {
                     );
                     console.log(user);
                     console.log(process.env.NEXTAUTH_SECRET);
-                    
 
                     if (!user) {
                          return null;
@@ -55,20 +55,28 @@ const authOptions: NextAuthOptions = {
      session: {
           strategy: "jwt",
      },
-     secret: process.env.AUTH_SECRET,
+     secret: process.env.AUTH_SECRET ? process.env.AUTH_SECRET : 'nextauth',
      pages: {
           signIn: "/login",
      },
      callbacks: {
+          async jwt({ token, user }) {
+              if (user) {
+                  token.email = user.email;
+                  token.id = user.id;  // Or any other identifier you use
+              }
+              console.log("JWT Callback:", token); // Add logs for debugging
+              return token;
+          },
           async session({ session, token }) {
-               console.log("Session Callback:", session, token);
-               return session;
+              session.user = {
+                  ...session.user,
+                  email: token.email,
+              };
+              console.log("Session Callback:", session); // Debug logs
+              return session;
           },
-          async jwt({ token }) {
-               console.log("JWT Callback:", token);
-               return token;
-          },
-     },
+      },
 };
 
 export const handlers = NextAuth(authOptions);

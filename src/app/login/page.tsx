@@ -2,8 +2,36 @@
 import { Button, Input } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import  {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import Swal from "sweetalert2";
+
+const validateInput = (name: string, value: string) => {
+     let isInvalid = false;
+     let errorMessage = "";
+
+     switch (name) {
+          case "email":
+               if (!value) {
+                    isInvalid = true;
+                    errorMessage = "Email is required";
+               } else if (!/^[\w-.]+@([\w-]+\.)+[a-zA-Z]{2,}$/.test(value)) {
+                    isInvalid = true;
+                    errorMessage = "Please enter a valid email";
+               }
+               break;
+          case "password":
+               if (!value) {
+                    isInvalid = true;
+                    errorMessage = "Password is required";
+               }
+               break;
+          default:
+               break;
+     }
+
+     return { isInvalid, errorMessage };
+};
 
 function Login() {
      const router = useRouter();
@@ -11,41 +39,81 @@ function Login() {
           email: "",
           password: "",
      });
+
+     const [errors, setErrors] = useState({
+          email: "",
+          password: "",
+     });
+
      const [error, setError] = useState("");
      const handleInputChange = (
           e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
      ) => {
           const { name, value } = e.target;
+          const { isInvalid, errorMessage } = validateInput(name, value);
           setFormLogin((prev) => ({
                ...prev,
                [name]: value,
+          }));
+
+          setErrors((prevState) => ({
+               ...prevState,
+               [name]: errorMessage,
           }));
      };
      const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           e.preventDefault();
 
+          const emailValidation = validateInput("email", formLogin.email);
+          const passwordValidation = validateInput(
+               "password",
+               formLogin.password
+          );
+
+          if (emailValidation.isInvalid || passwordValidation.isInvalid) {
+               setErrors({
+                    email: emailValidation.errorMessage,
+                    password: passwordValidation.errorMessage,
+               });
+               return; // Prevent submission if any field is invalid
+          }
+
           try {
                const res = await signIn("credentials", {
-                    redirect: false, 
+                    redirect: false,
                     email: formLogin.email,
                     password: formLogin.password,
                });
                console.log(res);
-               
 
                if (res?.ok) {
-                    console.log(res);
-                    console.log("Login successful");
-                    router.push('/dashboard')
-
-                    // Optionally redirect or update UI
+                    // Success alert
+                    Swal.fire({
+                         title: "Login Successful",
+                         text: "You have successfully logged in!",
+                         icon: "success",
+                         confirmButtonText: "OK",
+                    }).then(() => {
+                         // Redirect to dashboard after successful login
+                         router.push("/dashboard");
+                    });
                } else {
                     setError(res?.error || "Login failed");
-                    console.log("Login failed:", res?.error);
+                    Swal.fire({
+                         title: "Login Failed",
+                         text: res?.error || "Login failed",
+                         icon: "error",
+                         confirmButtonText: "OK",
+                    });
                }
           } catch (error) {
-               console.error("Login failed:", error);
                setError("An error occurred during login");
+               Swal.fire({
+                    title: "Error",
+                    text: "An error occurred during login",
+                    icon: "error",
+                    confirmButtonText: "OK",
+                });
           }
      };
      return (
@@ -74,6 +142,8 @@ function Login() {
                                         label="Email"
                                         placeholder="you@example.com"
                                         labelPlacement="outside"
+                                        isInvalid={!!errors.email}
+                                        errorMessage={errors.email}
                                    />
                               </div>
                               <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 py-7">
@@ -84,9 +154,11 @@ function Login() {
                                         label="Password"
                                         placeholder="*********"
                                         labelPlacement="outside"
+                                        isInvalid={!!errors.password}
+                                        errorMessage={errors.password}
                                    />
                               </div>
-                              <div className="flex justify-center w-full items-center">
+                              <div className="flex justify-center w-full items-center p-6">
                                    <Button
                                         type="submit"
                                         radius="full"

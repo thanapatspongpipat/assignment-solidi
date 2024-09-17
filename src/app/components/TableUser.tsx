@@ -24,9 +24,11 @@ import {
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
-import { columns, statusOptions } from "../../../public/data/tableUser";
+import { columns } from "../../../public/data/tableUser";
 import users from "../../../public/mocks/users.json";
-import { User as typeUser, UserWithActions } from "../interface/User";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import { User as typeUser } from "../interface/User";
+import ModalUser from "./ModalUser";
 
 const statusColorMap = {
      active: "success",
@@ -58,16 +60,16 @@ const formatDate = (date: CalendarDate) => {
 
 const getGenderLabel = (genderId: number) => {
      switch (genderId) {
-         case 1:
-             return "Male";
-         case 2:
-             return "Female";
-         case 3:
-             return "ETC.";
-         default:
-             return "Unknown";
+          case 1:
+               return "Male";
+          case 2:
+               return "Female";
+          case 3:
+               return "ETC.";
+          default:
+               return "Unknown";
      }
- };
+};
 
 export default function TableUser() {
      const [filterValue, setFilterValue] = useState<string>("");
@@ -83,6 +85,11 @@ export default function TableUser() {
                direction: "ascending",
           }
      );
+     const [selectedUser, setSelectedUser] = React.useState<typeUser | null>(
+          null
+     ); // Track selected user
+     const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false); // Modal open state
+
      const [page, setPage] = React.useState<number>(1);
 
      const hasSearchFilter = Boolean(filterValue);
@@ -134,9 +141,6 @@ export default function TableUser() {
      }, [sortDescriptor, items]);
 
      const renderCell = React.useCallback((user: any, columnKey: any) => {
-          console.log(user);
-          console.log(columnKey);
-
           const cellValue = user[columnKey];
 
           switch (columnKey) {
@@ -160,7 +164,7 @@ export default function TableUser() {
                case "gender":
                     return (
                          <Chip className="capitalize" size="sm" variant="flat">
-                             {getGenderLabel(cellValue)}
+                              {getGenderLabel(cellValue)}
                          </Chip>
                     );
                case "birthDate":
@@ -168,22 +172,14 @@ export default function TableUser() {
                case "actions":
                     return (
                          <div className="relative flex justify-center items-center gap-2">
-                              <Dropdown>
-                                   <DropdownTrigger>
-                                        <Button
-                                             isIconOnly
-                                             size="sm"
-                                             variant="light"
-                                        >
-                                             <MoreVertOutlinedIcon className="text-default-300" />
-                                        </Button>
-                                   </DropdownTrigger>
-                                   <DropdownMenu>
-                                        <DropdownItem>View</DropdownItem>
-                                        <DropdownItem>Edit</DropdownItem>
-                                        <DropdownItem>Delete</DropdownItem>
-                                   </DropdownMenu>
-                              </Dropdown>
+                              <Button
+                                   isIconOnly
+                                   size="sm"
+                                   variant="light"
+                                   onClick={() => openUserModal(user)} // Open modal on click
+                              >
+                                   <VisibilityOutlinedIcon className="text-default-30 text-green-600" />
+                              </Button>
                          </div>
                     );
                default:
@@ -224,6 +220,17 @@ export default function TableUser() {
           setFilterValue("");
           setPage(1);
      }, []);
+
+     const openUserModal = (user: typeUser) => {
+          console.log(user);
+          setSelectedUser(user);
+          setIsModalOpen(true);
+     };
+
+     const closeUserModal = () => {
+          setSelectedUser(null);
+          setIsModalOpen(false);
+     };
 
      const topContent = React.useMemo(() => {
           return (
@@ -367,47 +374,58 @@ export default function TableUser() {
      }, [selectedKeys, items.length, page, pages, hasSearchFilter]);
 
      return (
-          <Table
-          
-               aria-label="Example table with custom cells, pagination and sorting"
-               isHeaderSticky
-               bottomContent={bottomContent}
-               bottomContentPlacement="outside"
-               classNames={{
-                    wrapper: "max-h-[382px]",
-               }}
-               selectedKeys={selectedKeys}
-               // selectionMode="multiple"
-               sortDescriptor={sortDescriptor}
-               topContent={topContent}
-               topContentPlacement="outside"
-               onSelectionChange={setSelectedKeys}
-               onSortChange={setSortDescriptor}
-          >
-               <TableHeader columns={headerColumns}>
-                    {(column: any) => (
-                         <TableColumn
-                              key={column.uid}
-                              align={
-                                   column.uid === "actions" ? "center" : "start"
-                              }
-                              allowsSorting={column.sortable}
-                         >
-                              {column.name}
-                         </TableColumn>
-                    )}
-               </TableHeader>
-               <TableBody emptyContent={"No users found"} items={sortedItems}>
-                    {(item: any) => (
-                         <TableRow key={item?.email}>
-                              {(columnKey: any) => (
-                                   <TableCell>
-                                        {renderCell(item, columnKey)}
-                                   </TableCell>
-                              )}
-                         </TableRow>
-                    )}
-               </TableBody>
-          </Table>
+          <>
+               <Table
+                    aria-label="Example table with custom cells, pagination and sorting"
+                    isHeaderSticky
+                    bottomContent={bottomContent}
+                    bottomContentPlacement="outside"
+                    classNames={{
+                         wrapper: "h-[445px]",
+                    }}
+                    selectedKeys={selectedKeys}
+                    // selectionMode="multiple"
+                    sortDescriptor={sortDescriptor}
+                    topContent={topContent}
+                    topContentPlacement="outside"
+                    onSelectionChange={setSelectedKeys}
+                    onSortChange={setSortDescriptor}
+               >
+                    <TableHeader columns={headerColumns}>
+                         {(column: any) => (
+                              <TableColumn
+                                   key={column.uid}
+                                   align={
+                                        column.uid === "actions"
+                                             ? "center"
+                                             : "start"
+                                   }
+                                   allowsSorting={column.sortable}
+                              >
+                                   {column.name}
+                              </TableColumn>
+                         )}
+                    </TableHeader>
+                    <TableBody
+                         emptyContent={"No users found"}
+                         items={sortedItems}
+                    >
+                         {(item: any) => (
+                              <TableRow key={item?.email}>
+                                   {(columnKey: any) => (
+                                        <TableCell>
+                                             {renderCell(item, columnKey)}
+                                        </TableCell>
+                                   )}
+                              </TableRow>
+                         )}
+                    </TableBody>
+               </Table>
+               <ModalUser
+                    user={selectedUser}
+                    isOpen={isModalOpen}
+                    onClose={closeUserModal}
+               />
+          </>
      );
 }

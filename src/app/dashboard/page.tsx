@@ -21,7 +21,7 @@ const Dashboard = () => {
           >
                <div className="w-full h-screen">
                     <Navbar />
-                    <div className="flex h-full w-full bg-[#1a1919] p-8">
+                    <div className="flex h-screen w-full bg-white p-8">
                          <div className="flex w-full h-fit bg-[#1B1B1B] p-6 rounded-3xl shadow-xl">
                               <TableUser />
                          </div>
