@@ -8,7 +8,7 @@ First, clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/thanapatspongpipat/assignment-solidi.git
-cd assignment-solidi
+cd ex-solidi
 ```
 
 ## 2. Install Dependencies
